@@ -3,10 +3,11 @@ kind: Pod
 metadata:
   name: hello-node.example.com
   labels:
-    app: hello-node
+    app: hello-node # used by lb service so k8 knows which pod the lb is for
 spec:
   containers:
     - name: kubernetes-hello-node-app
       image: devkaoru/kubernetes_hello_node_app
       ports:
-        - containerPort: 3000
+        - name: nodejs-port # makes it easier to reference this in an lb file
+          containerPort: 3000
