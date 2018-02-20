@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: hello-node-rc
+  labels:
+    app: hello-node # used by lb service so k8 knows which pod the lb is for
+spec:
+  replicas: 4
+  selector:
+    app: hello-node # refers to template.metadata.labels.app
+  template:
+    metadata:
+      labels:
+        app: hello-node
+    spec:
+      containers:
+        - name: kubernetes-hello-node-app
+          image: devkaoru/kubernetes_hello_node_app
+          ports:
+            # makes it easier to reference this in an lb file
+            - name: nodejs-port
+              containerPort: 3000
