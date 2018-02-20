@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-hello-node
+  labels:
+    app: hello-node
+spec:
+  revisionHistoryLimit: 100
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-node # must match spec template
+  template:
+    metadata:
+      labels:
+        app: hello-node # must match selector
+    spec:
+      containers:
+        - name: hello-node
+          image: devkaoru/kubernetes_hello_node_app
+          ports:
+            - name: nodejs-port
+              containerPort: 3000
